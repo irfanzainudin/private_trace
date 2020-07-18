@@ -2,10 +2,12 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
-<div class="justify-content-center align-self-center">
+<div style="justify-self: center; align-self: center;">
   <img src={{icon}} class="img-fluid" alt="private_ trace">
+</div>
+<form style="display: grid; grid-row-start: 2; grid-row-end: 3;">
   <!-- <h1>Operator login</h1> -->
-  <form>
+  <div style="justify-self: center">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -15,7 +17,9 @@
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" id="exampleInputPassword1">
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-</div>
+  </div>
+  <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center">
+    Login
+  </button>
+</form>
 {% endblock %}
