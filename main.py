@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    icon=url_for("static", filename="icon.svg")
+    return render_template("index.html",icon=icon)
 
 @app.route("/login/user")
 def user_login():
