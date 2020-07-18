@@ -27,5 +27,12 @@ def user_qr():
     qr=url_for("static", filename="temp_qr.png")
     return render_template("user_qr.html",icon=icon, qr=qr)
 
+@app.route("/user/scan")
+def user_scan():
+    icon=url_for("static", filename="icon.svg")
+    camera=url_for("static", filename="temp_img.png")
+    return render_template("user_scan.html",icon=icon, camera=camera)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
