@@ -2,18 +2,20 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
-<!--<div class="justify-content-center align-self-center">-->
-<form style ="display: grid; grid-row-start: 2; grid-row-end: 3;"></form>
-    <p><img src={{icon}} class="img-fluid" alt="private_ trace"></p>
-    <!--<h1>MAIN PAGE FOR LOGIN</h1>-->  
-  <div class="btn">
-    <p><a href="{{ url_for('user_login') }}" type="submit" class="btn btn-primary">User</a></p>
-  
-    <p><a href="{{ url_for('operator_login') }}" type="submit" class="btn btn-primary">Operator</a></p>
-  </div>
-</div>
-<div class="btn">
-  <a href="{{ url_for('operator_login') }}" type="submit" class="btn btn-primary">Operator</a>
+<div style="justify-self: center; align-self: center;">
+  <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
 
+<form method="POST">
+<div style="display: flex; justify-content: center;">
+ <button type="submit" class="btn btn-primary" style="width:30vh; margin-top:3vh" name="account_type" value="user">
+    User
+  </button>
+</div>
+<div style="display: flex; justify-content: center;">
+ <button type="submit" class="btn btn-secondary" style="width:30vh; margin-top:3vh" name="account_type" value="operator">
+    Operator
+  </button>
+</div>
+</form>
 {% endblock %}
