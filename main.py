@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 app = Flask(__name__)
 
 
@@ -6,9 +6,9 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/user")
+@app.route("/login/user")
 def user_login():
-    icon="./static/icon.svg"
+    icon=url_for("static", filename="icon.svg")
     return render_template("user_login.html",icon=icon)
 
 if __name__ == "__main__":
