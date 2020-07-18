@@ -9,15 +9,16 @@ def home():
 
 @app.route("/login/user", methods=["POST","GET"])
 def user_login():
-    if "yes" in request.form:
-        phone_number = request.form["phone_number"]
-        print(phone_number)
-        return redirect(url_for("user_qr"))
+    if request.method == "POST":
+        if request.form["option-btn"] == "yes":
+            phone_number = request.form["phone_number"]
+            print(phone_number)
+            return redirect(url_for("user_qr"))
+        else:
+            return redirect(url_for("get_email"))
     else:
-        return redirect(url_for("get_email"))
-
-    icon=url_for("static", filename="icon.svg")
-    return render_template("user_login.html",icon=icon)
+        icon=url_for("static", filename="icon.svg")
+        return render_template("user_login.html",icon=icon)
 
 @app.route("/login/operator")
 def operator_login():
