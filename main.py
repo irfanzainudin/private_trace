@@ -1,6 +1,21 @@
-from flask import Flask, render_template, url_for, request, redirect
-app = Flask(__name__)
+from flask import Flask, render_template, url_for, request, redirect, session
+from flask_sqlalchemy import SQLAlchemy
+from qr_suite import encode_qr, decode_qr
+import os
 
+app = Flask(__name__)
+app.secret_key = "Random word"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
+
+db = SQLAlchemy(app)
+
+class users(db.Model):
+    phone_number = db.Column("phone_number", db.Integer, primary_key=True)
+    email = db.Column("email", db.String(100))
+
+    def __init__(self, phone_number, email):
+        self.phone_number = phone_number
+        self.email = email
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -18,8 +33,18 @@ def user_login():
     if request.method == "POST":
         phone_number = request.form["phone_number"]
         user_email = request.form["user_email"]
-        # This should be changed to add it to DB
-        print(phone_number, user_email)
+        session.permanent = True
+
+        found_user = users.query.filter_by(phone_number=phone_number).first()
+        if found_user:
+            print("User already exist")
+        else:
+            new_usr = users(phone_number, user_email)
+            db.session.add(new_usr)
+            db.session.commit()
+
+        session["img"] = encode_qr(phone_number)
+
         return render_template(url_for("user_qr"))
     else:
         icon=url_for("static", filename="icon.svg")
@@ -28,7 +53,8 @@ def user_login():
 @app.route("/user/qr")
 def user_qr():
     icon=url_for("static", filename="icon.svg")
-    qr=url_for("static", filename="temp_qr.png")
+    # qr=url_for("static", filename="temp_qr.png")
+    qr = url_for("users", filename=session["img"])
     return render_template("user_qr.html",icon=icon, qr=qr)
 
 @app.route("/user/scan")
@@ -49,4 +75,6 @@ def operator_login():
         return render_template("operator_login.html",icon=icon)
 
 if __name__ == "__main__":
+    os.system('rm ./users/*')
+    db.create_all()
     app.run(debug=True)
