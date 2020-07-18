@@ -16,5 +16,10 @@ def operator_login():
     icon=url_for("static", filename="icon.svg")
     return render_template("operator_login.html",icon=icon)
 
+@app.route("/user/email")
+def get_email():
+    icon=url_for("static", filename="icon.svg")
+    return render_template("get_email.html",icon=icon)
+
 if __name__ == "__main__":
     app.run(debug=True)

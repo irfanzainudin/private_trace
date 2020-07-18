@@ -7,7 +7,7 @@
 <!-- form has no action yet -->
 <form method="post">
 <div class="form-group">
-    <input class="form-control" type="tel" name="phone" id="phone" 
+    <input class="form-control" type="tel" name="phone_number" id="phone" 
         pattern="0{1}[0-9]{9}" placeholder="Phone number">
 </div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prompt">Login</button>
@@ -26,7 +26,10 @@
         <p> If you clicked no, the method of contact is insecure. Your email will be required and is stored on the server.</p>
       </div>
       <div class="modal-footer">
+          <!-- go to user QR -->
         <button type="submit" class="btn btn-primary" data-dismiss="modal">Yes</button>
+
+        <!-- go to user email -->
         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
