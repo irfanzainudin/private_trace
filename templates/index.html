@@ -2,5 +2,14 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
-<h1>MAIN PAGE FOR LOGIN</h1>
+<!--<div class="justify-content-center align-self-center">-->
+
+    <img src={{icon}} class="img-fluid" alt="private_ trace">
+    <!--<h1>MAIN PAGE FOR LOGIN</h1>-->  
+  <div class="btn">
+    <a href="{{ url_for('user_login') }}" type="submit" class="btn btn-primary">User</a>
+  </div>
+    <a href="{{ url_for('operator_login') }}" type="submit" class="btn btn-primary">Operator</a>
+
+</div>
 {% endblock %}
