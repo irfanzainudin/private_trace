@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 app = Flask(__name__)
 
 
@@ -7,8 +7,15 @@ def home():
     icon=url_for("static", filename="icon.svg")
     return render_template("index.html",icon=icon)
 
-@app.route("/login/user")
+@app.route("/login/user", methods=["POST","GET"])
 def user_login():
+    if "yes" in request.form:
+        phone_number = request.form["phone_number"]
+        print(phone_number)
+        return redirect(url_for("user_qr"))
+    else:
+        return redirect(url_for("get_email"))
+
     icon=url_for("static", filename="icon.svg")
     return render_template("user_login.html",icon=icon)
 
@@ -17,8 +24,13 @@ def operator_login():
     icon=url_for("static", filename="icon.svg")
     return render_template("operator_login.html",icon=icon)
 
-@app.route("/user/email")
+@app.route("/user/email", methods=["POST", "GET"])
 def get_email():
+    if request.method == "POST":
+        user_email = request.form["user_email"]
+        print(user_email)
+        return redirect(url_for("user_qr"))
+
     icon=url_for("static", filename="icon.svg")
     return render_template("get_email.html",icon=icon)
 
