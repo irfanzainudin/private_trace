@@ -2,10 +2,16 @@ from flask import Flask, render_template, url_for, request, redirect
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def home():
-    icon=url_for("static", filename="icon.svg")
-    return render_template("index.html",icon=icon)
+    if request.method == "POST":
+        if request.form["account_type"] == "user":
+            return redirect(url_for("user_login"))
+        else:
+            return redirect(url_for("operator_login"))
+    else:
+        icon=url_for("static", filename="icon.svg")
+        return render_template("index.html",icon=icon)
 
 @app.route("/login/user", methods=["POST","GET"])
 def user_login():
