@@ -11,5 +11,10 @@ def user_login():
     icon=url_for("static", filename="icon.svg")
     return render_template("user_login.html",icon=icon)
 
+@app.route("/login/operator")
+def operator_login():
+    icon=url_for("static", filename="icon.svg")
+    return render_template("operator_login.html",icon=icon)
+
 if __name__ == "__main__":
     app.run(debug=True)
