@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} private_trace {% endblock %}
+
+{% block content %}
+<img src={{icon}} class="img-fluid" alt="private_ trace">
+
+<!-- form has no action yet -->
+<form method="post">
+<div class="form-group">
+    <input class="form-control" type="email" name="user_email" id="email" placeholder="Email">
+</div>
+    <button type="button" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+
+{% endblock %}
