@@ -21,5 +21,11 @@ def get_email():
     icon=url_for("static", filename="icon.svg")
     return render_template("get_email.html",icon=icon)
 
+@app.route("/user/qr")
+def user_qr():
+    icon=url_for("static", filename="icon.svg")
+    qr=url_for("static", filename="temp_qr.png")
+    return render_template("user_qr.html",icon=icon, qr=qr)
+
 if __name__ == "__main__":
     app.run(debug=True)
