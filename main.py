@@ -54,7 +54,6 @@ def user_login():
 @app.route("/user/qr")
 def user_qr():
     icon=url_for("static", filename="icon.svg")
-    # qr=url_for("static", filename="temp_qr.png")
     path = session["img"]
     qr = f"../../static/user_qr/{path}"
     return render_template("user_qr.html",icon=icon, qr=qr)
@@ -77,6 +76,6 @@ def operator_login():
         return render_template("operator_login.html",icon=icon)
 
 if __name__ == "__main__":
-    os.system('rm ./users/*')
+    os.system('rm ./static/user_qr/*')
     db.create_all()
     app.run(debug=True)
