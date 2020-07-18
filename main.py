@@ -43,9 +43,10 @@ def user_login():
             db.session.add(new_usr)
             db.session.commit()
 
+        os.system(f"if test -e users/{phone_number}; then; rm users/{phone_number}; fi")
         session["img"] = encode_qr(phone_number)
 
-        return render_template(url_for("user_qr"))
+        return redirect(url_for("user_qr"))
     else:
         icon=url_for("static", filename="icon.svg")
         return render_template("user_login.html",icon=icon)
@@ -54,7 +55,8 @@ def user_login():
 def user_qr():
     icon=url_for("static", filename="icon.svg")
     # qr=url_for("static", filename="temp_qr.png")
-    qr = url_for("users", filename=session["img"])
+    path = session["img"]
+    qr = f"../../static/user_qr/{path}"
     return render_template("user_qr.html",icon=icon, qr=qr)
 
 @app.route("/user/scan")
