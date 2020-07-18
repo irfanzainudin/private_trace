@@ -1,11 +1,13 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from qr_suite import encode_qr, decode_qr
+from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
 app.secret_key = "Random word"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
+app.config["UPLOAD_FOLDER"] = "./static/user_qr"
 
 db = SQLAlchemy(app)
 
@@ -58,8 +60,20 @@ def user_qr():
     qr = f"../../static/user_qr/{path}"
     return render_template("user_qr.html",icon=icon, qr=qr)
 
-@app.route("/user/scan")
+@app.route("/user/scan", methods=["POST", "GET"])
 def user_scan():
+    if request.method == "POST":
+        f = request.files["file"]
+        file_name = secure_filename(f.filename)
+        path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+        f.save(path)
+        uid_restaurant = decode_qr(path)
+        if not uid_restaurant:
+            flash("No QR detected, scan again")
+        else:
+            return render_template("user.html", uid_restaurant=uid_restaurant)
+
+    flash("Nothing scanned yet")
     icon=url_for("static", filename="icon.svg")
     camera=url_for("static", filename="temp_img.png")
     return render_template("user_scan.html",icon=icon, camera=camera)
