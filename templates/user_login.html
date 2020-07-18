@@ -2,39 +2,27 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
-<img src={{icon}} class="img-fluid" alt="private_ trace">
+<div style="justify-self: center; align-self: center;">
+  <img src={{icon}} class="img-fluid" alt="private_ trace">
+</div>
+
 <!-- TODO:
 PHONE NUMBER
 EMAIL -->
-<!-- form has no action yet -->
 <form method="POST">
-<div class="form-group">
+<div class="justify-self-center">
+  <div class="form-group">
     <input class="form-control" type="tel" name="phone_number" id="phone" 
         pattern="0{1}[0-9]{9}" placeholder="Phone number">
-</div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prompt" >Login</button>
-</form>
-
-<div class="modal fade" id="prompt" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Allow web notification?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="No">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p> If you clicked no, the method of contact is insecure. Your email will be required and is stored on the server.</p>
-      </div>
-      <div class="modal-footer">
-          <!-- go to user QR -->
-        <button type="submit" name="option-btn" class="btn btn-primary" data-dismiss="modal" value="yes">Yes</button>
-
-        <!-- go to user email -->
-        <button type="submit" name="option-btn" class="btn btn-secondary" data-dismiss="modal" value="no">No</button>
-      </div>
-    </div>
   </div>
 </div>
+
+<div style="display: flex; justify-content: center;">
+ <button type="submit" class="btn btn-primary" style="width:30vh; margin-top:3vh">
+    Login
+  </button>
+</div>
+
+</form>
+
 {% endblock %}
