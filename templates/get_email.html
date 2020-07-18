@@ -2,17 +2,15 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
-<img src={{icon}} class="img-fluid" alt="private_ trace">
-
+<div style="justify-self: center; align-self: center;">
+  <img src={{icon}} class="img-fluid" alt="private_ trace">
+</div>
 <!-- form has no action yet -->
 <form method="post">
+
 <div class="form-group">
     <input class="form-control" type="email" name="user_email" id="email" placeholder="Email">
 </div>
     <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
-
-
-
-
 {% endblock %}
