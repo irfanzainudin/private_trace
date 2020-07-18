@@ -48,5 +48,17 @@ def operator_login():
         icon=url_for("static", filename="icon.svg")
         return render_template("operator_login.html",icon=icon)
 
+@app.route("/operator/qr")
+def operator_qr():
+    icon=url_for("static", filename="icon.svg")
+    qr=url_for("static", filename="temp_qr.png")
+    return render_template("operator_qr.html",icon=icon, qr=qr)
+
+@app.route("/operator/scan")
+def operator_scan():
+    icon=url_for("static", filename="icon.svg")
+    camera=url_for("static", filename="temp_img.png")
+    return render_template("operator_scan.html",icon=icon, camera=camera)
+
 if __name__ == "__main__":
     app.run(debug=True)
