@@ -19,6 +19,13 @@ class users(db.Model):
         self.phone_number = phone_number
         self.email = email
 
+class operators(db.Model):
+    operator_email = db.Column("operator_email", db.Integer, primary_key=True)
+    password = db.Column("password", db.String(100))
+
+    def __init__(self, operator_email, password):
+        self.operator_email = operator_email
+        self.password = password
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -97,9 +104,12 @@ def operator_login():
     if request.method == "POST":
         operator_email = request.form["operator_email"]
         password = request.form["password"]
-        # ADD TO DB
-        if authenticate_operator(operator_email, password):
-            return redirect(url_for("operator_qr"))
+
+        found_operator = operators.query.filter_by(operator_email=operator_email).first()
+
+        if found_operator:
+            if password == found_operator.password:
+                return redirect(url_for("operator_qr"))
         else:
             return redirect(url_for("operator_relogin"))
     else:
@@ -124,9 +134,12 @@ def operator_relogin():
     if request.method == "POST":
         operator_email = request.form["operator_email"]
         password = request.form["password"]
-        # ADD TO DB
-        if authenticate_operator(operator_email, password):
-            return redirect(url_for("operator_qr"))
+
+        found_operator = operators.query.filter_by(operator_email=operator_email).first()
+
+        if found_operator:
+            if password == found_operator.password:
+                return redirect(url_for("operator_qr"))
         else:
             return redirect(url_for("operator_relogin"))
     return render_template("operator_relogin.html",icon=icon)
