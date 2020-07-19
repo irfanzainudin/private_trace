@@ -55,12 +55,15 @@ def user_login():
     else:
         return render_template("user_login.html",icon=icon)
 
-@app.route("/user/qr")
+@app.route("/user/qr", methods=["POST", "GET"])
 def user_qr():
-    icon=url_for("static", filename="icon.svg")
-    path = session["img"]
-    qr = f"../../static/user_qr/{path}"
-    return render_template("user_qr.html",icon=icon, qr=qr)
+    if request.method == "POST":
+            return redirect(url_for("user_scan"))
+    else:
+        icon=url_for("static", filename="icon.svg")
+        path = session["img"]
+        qr = f"../../static/user_qr/{path}"
+        return render_template("user_qr.html",icon=icon, qr=qr)
 
 @app.route("/user/scan", methods=["POST", "GET"])
 def user_scan():
