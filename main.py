@@ -7,11 +7,16 @@ import os
 app = Flask(__name__)
 app.secret_key = "Random word"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
+app.config["SQLALCHEMY_BINDS"] = {
+    "users":"sqlite:///users.sqlite3",
+    "opetators":"sqlite:///operators.sqlite3"
+}
 app.config["UPLOAD_FOLDER"] = "./static/user_qr"
 
 db = SQLAlchemy(app)
 
 class users(db.Model):
+    __bind_key__ = "users"
     phone_number = db.Column("phone_number", db.Integer, primary_key=True)
     email = db.Column("email", db.String(100))
 
@@ -20,7 +25,8 @@ class users(db.Model):
         self.email = email
 
 class operators(db.Model):
-    operator_email = db.Column("operator_email", db.Integer, primary_key=True)
+    __bind_key__ = "operators"
+    operator_email = db.Column("operator_email", db.String(100), primary_key=True)
     password = db.Column("password", db.String(100))
 
     def __init__(self, operator_email, password):
