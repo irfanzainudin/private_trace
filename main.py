@@ -68,15 +68,18 @@ def user_qr():
 @app.route("/user/scan", methods=["POST", "GET"])
 def user_scan():
     if request.method == "POST":
-        f = request.files["file"]
-        file_name = secure_filename(f.filename)
-        path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-        f.save(path)
-        uid_restaurant = decode_qr(path)
-        if not uid_restaurant:
-            flash("No QR detected, scan again")
+        if request.form["opt"] == "generate":
+            return redirect(url_for("user_qr"))
         else:
-            return render_template("user.html", uid_restaurant=uid_restaurant)
+            f = request.files["file"]
+            file_name = secure_filename(f.filename)
+            path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            f.save(path)
+            uid_restaurant = decode_qr(path)
+            if not uid_restaurant:
+                flash("No QR detected, scan again")
+            else:
+                return render_template("user.html", uid_restaurant=uid_restaurant)
 
     flash("Nothing scanned yet")
     icon=url_for("static", filename="icon.svg")

@@ -39,11 +39,13 @@
 <div class="container pb-3">
     <form method="post" enctype="multipart/form-data">
     <label class="cust_upload" for="file-upload"><i class="fas fa-camera"></i> Scan QR Code</label>
-    <input id="file-upload" type="file" name="file" accept="image/*" capture="environment" onchange="this.form.submit()">
+    <input id="file-upload" type="file" name="file" value="qr" accept="image/*" capture="environment" onchange="this.form.submit()">
     </form>
 </div>
 
 <div class="container pb-3">
-    <button type="button" class="btn btn-secondary" style="width:30vh">Generate QR Code</button>
+    <form method="post">
+    <button type="submit" name="opt" value="generate" class="btn btn-secondary" style="width:30vh">Generate QR Code</button>
+    </form>
 </div>
 {% endblock %}
