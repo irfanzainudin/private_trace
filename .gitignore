@@ -1,4 +1,4 @@
 # created by virtualenv automatically
 Lib/
 Scripts/
-static/user_qr/
+static/user_qr/*
