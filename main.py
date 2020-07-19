@@ -9,7 +9,7 @@ app.secret_key = "Random word"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
 app.config["SQLALCHEMY_BINDS"] = {
     "users":"sqlite:///users.sqlite3",
-    "opetators":"sqlite:///operators.sqlite3"
+    "operators":"sqlite:///operators.sqlite3"
 }
 app.config["UPLOAD_FOLDER"] = "./static/user_qr"
 
@@ -153,4 +153,7 @@ def operator_relogin():
 if __name__ == "__main__":
     os.system('rm ./static/user_qr/*')
     db.create_all()
+    new_ope = operators("tot@gmail.com", "1234")
+    db.session.add(new_ope)
+    db.session.commit()
     app.run(debug=True)
