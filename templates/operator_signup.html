@@ -10,16 +10,16 @@
   <div style="justify-self: center">
     <div class="form-group">
       <label for="ope_email">Email address</label>
-      <input type="email" name="operator_email" class="form-control" id="ope_email" aria-describedby="emailHelp">
+      <input type="email" name="operator_email" class="form-control" id="ope_email" aria-describedby="emailHelp" required>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="ope_password">Password</label>
-      <input type="password" name="password" class="form-control" id="ope_password">
+      <input type="password" name="password" class="form-control" id="ope_password" required>
     </div>
     <div class="form-group">
       <label for="ope_confirm_password">Confirm Password</label>
-      <input type="password" name="confirm_password" class="form-control" id="ope_confirm_password">
+      <input type="password" name="confirm_password" class="form-control" id="ope_confirm_password" required>
     </div>
   </div>
   <button type="submit" name="submit_button" value="signup" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
