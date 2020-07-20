@@ -47,7 +47,6 @@ def home():
 @app.route("/login/user", methods=["POST","GET"])
 def user_login():
     icon=url_for("static", filename="icon.svg")
-    qr=url_for("static", filename="temp_qr.png")
     if request.method == "POST":
         phone_number = request.form["phone_number"]
         user_email = request.form["user_email"]
@@ -68,42 +67,29 @@ def user_login():
     else:
         return render_template("user_login.html",icon=icon)
 
-@app.route("/user/qr", methods=["POST", "GET"])
+@app.route("/user/qr")
 def user_qr():
-    if request.method == "POST":
-            return redirect(url_for("user_scan"))
-    else:
-        icon=url_for("static", filename="icon.svg")
-        path = session["img"]
-        qr = f"../../static/user_qr/{path}"
-        return render_template("user_qr.html",icon=icon, qr=qr)
+    icon=url_for("static", filename="icon.svg")
+    path = session["img"]
+    qr = f"../../static/user_qr/{path}"
+    return render_template("user_qr.html",icon=icon, qr=qr)
 
 @app.route("/user/scan", methods=["POST", "GET"])
 def user_scan():
+    icon=url_for("static", filename="icon.svg")
     if request.method == "POST":
-        if request.form["opt"] == "generate":
-            return redirect(url_for("user_qr"))
+        f = request.files["file"]
+        file_name = secure_filename(f.filename)
+        path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+        f.save(path)
+        uid_restaurant = decode_qr(path)
+        if not uid_restaurant:
+            flash("No QR detected, scan again")
         else:
-            f = request.files["file"]
-            file_name = secure_filename(f.filename)
-            path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            f.save(path)
-            uid_restaurant = decode_qr(path)
-            if not uid_restaurant:
-                flash("No QR detected, scan again")
-            else:
-                return render_template("user.html", uid_restaurant=uid_restaurant)
+            return render_template("user.html", uid_restaurant=uid_restaurant)
 
     flash("Nothing scanned yet")
-    icon=url_for("static", filename="icon.svg")
-    camera=url_for("static", filename="temp_img.png")
-    return render_template("user_scan.html",icon=icon, camera=camera)
-
-@app.route("/new-user/qr")
-def new_user_qr():
-    icon=url_for("static", filename="icon.svg")
-    qr=url_for("static", filename="temp_qr.png")
-    return render_template("new_user_qr.html",icon=icon, qr=qr)
+    return render_template("user_scan.html",icon=icon)
 
 @app.route("/login/operator", methods=["POST","GET"])
 def operator_login():
@@ -111,12 +97,13 @@ def operator_login():
     if request.method == "POST":
         operator_email = request.form["operator_email"]
         password = request.form["password"]
+        session.permanent = True
 
         found_operator = operators.query.filter_by(operator_email=operator_email).first()
 
         if found_operator:
-            # print("Operator already exists")
             if password == found_operator.password:
+                session["img"] = encode_qr(operator_email)
                 return redirect(url_for("operator_qr"))
             else:
                 return redirect(url_for("operator_login"))
@@ -128,14 +115,26 @@ def operator_login():
 @app.route("/operator/qr")
 def operator_qr():
     icon=url_for("static", filename="icon.svg")
-    qr=url_for("static", filename="temp_qr.png")
+    path = session["img"]
+    qr = f"../../static/user_qr/{path}"
     return render_template("operator_qr.html",icon=icon, qr=qr)
 
-@app.route("/operator/scan")
+@app.route("/operator/scan", methods=["POST", "GET"])
 def operator_scan():
     icon=url_for("static", filename="icon.svg")
-    camera=url_for("static", filename="temp_img.png")
-    return render_template("operator_scan.html",icon=icon, camera=camera)
+    if request.method == "POST":
+        f = request.files["file"]
+        file_name = secure_filename(f.filename)
+        path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+        f.save(path)
+        uid_restaurant = decode_qr(path)
+        if not uid_restaurant:
+            flash("No QR detected, scan again")
+        else:
+            return render_template("operator.html", uid_restaurant=uid_restaurant)
+
+    flash("Nothing scanned yet")
+    return render_template("operator_scan.html",icon=icon)
 
 @app.route("/signup/operator", methods=["POST", "GET"])
 def operator_signup():

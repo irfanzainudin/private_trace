@@ -5,9 +5,10 @@
 <div style="justify-self: center; align-self: center;">
   <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
-<form method="POST" style="display: grid; grid-row-start: 2; grid-row-end: 3;">
+
+<form method="POST" style="grid-row-start: 2; grid-row-end: 3; justify-self: center">
   <!-- <h1>Operator login</h1> -->
-  <div style="justify-self: center">
+  <div style="display: grid; justify-self: center">
     <div class="form-group">
       <label for="ope_email">Email address</label>
       <input type="email" name="operator_email" class="form-control" id="ope_email" aria-describedby="emailHelp" required>
@@ -21,11 +22,12 @@
       <label for="ope_confirm_password">Confirm Password</label>
       <input type="password" name="confirm_password" class="form-control" id="ope_confirm_password" required>
     </div>
+    <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
+      Signup
+    </button>
   </div>
-  <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
-    Signup
-  </button>
 </form>
+
 <div style="justify-self: center; align-self: center">
   <a type="button" href="{{ url_for('operator_login') }}" class="btn btn-secondary" style="justify-self: center; align-self: center; margin-left: 25px" describedby="alreadyRegistered">
     Login

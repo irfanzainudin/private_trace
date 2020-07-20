@@ -23,10 +23,14 @@
         width:30vh;
     }
 </style>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-<img src={{icon}} class="img-fluid" alt="private_ trace">
 
-<div class="container py-3">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+<div style="justify-self: center; align-self: center;">
+  <img src={{icon}} class="img-fluid" alt="private_ trace">
+</div>
+
+<div style="justify-self: center; align-self: center;">
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <p>{{messages[0]}}</p>
@@ -34,18 +38,12 @@
 {% endwith %}
 </div>
 
+<form method="post" enctype="multipart/form-data" style="justify-self: center; align-self: center;">
+  <label class="cust_upload" for="file-upload"><i class="fas fa-camera"></i> Scan QR Code</label>
+  <input id="file-upload" type="file" name="file" value="qr" accept="image/*" capture="environment" onchange="this.form.submit()">
+</form>
 
-
-<div class="container pb-3">
-    <form method="post" enctype="multipart/form-data">
-    <label class="cust_upload" for="file-upload"><i class="fas fa-camera"></i> Scan QR Code</label>
-    <input id="file-upload" type="file" name="file" value="qr" accept="image/*" capture="environment" onchange="this.form.submit()">
-    </form>
-</div>
-
-<div class="container pb-3">
-    <form method="post">
-    <button type="submit" name="opt" value="generate" class="btn btn-secondary" style="width:30vh">Generate QR Code</button>
-    </form>
+<div style="justify-self: center; align-self: center;">
+    <a href="{{ url_for('user_qr') }}" type="button" class="btn btn-secondary">Generate QR Code</a>
 </div>
 {% endblock %}

@@ -2,15 +2,48 @@
 {% block title %} private_trace {% endblock %}
 
 {% block content %}
+<style>
+    input[type="file"] { display: none}
+    .cust_upload {
+        display: inline-block;
+        text-align: center;
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        width:30vh;
+    }
+</style>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
 <div style="justify-self: center; align-self: center;">
   <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
 
 <div style="justify-self: center; align-self: center;">
-    <img src={{camera}} class="img-fluid" alt="Camera!">
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <p>{{messages[0]}}</p>
+    {% endif %}
+{% endwith %}
 </div>
 
+<form method="post" enctype="multipart/form-data" style="justify-self: center; align-self: center;">
+  <label class="cust_upload" for="file-upload"><i class="fas fa-camera"></i> Scan QR Code</label>
+  <input id="file-upload" type="file" name="file" value="qr" accept="image/*" capture="environment" onchange="this.form.submit()">
+</form>
+
 <div style="justify-self: center; align-self: center;">
-    <button type="button" class="btn btn-secondary">Generate QR Code</button>
+    <a href="{{ url_for('operator_qr') }}" type="button" class="btn btn-secondary">Generate QR Code</a>
 </div>
 {% endblock %}

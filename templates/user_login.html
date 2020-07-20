@@ -6,22 +6,29 @@
   <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
 
-<form method="POST">
-<div class="justify-self-center">
-  <div class="form-group">
-    <input class="form-control" type="tel" name="phone_number" id="phone" 
-        pattern="0{1}[0-9]{9}" placeholder="Phone number" required>
-    <input class="form-control" type="email" name="user_email" id="email" placeholder="Email"
-        style="margin-top:3vh" required>
+<form method="POST" style="grid-row-start: 2; grid-row-end: 3; justify-self: center">
+  <div style="display: grid; justify-self: center">
+    <div class="form-group">
+      <label for="phone">Phone number</label>
+      <input class="form-control" type="tel" name="phone_number" id="phone"
+          pattern="0{1}[0-9]{9}" aria-describedby="phoneHelp" required>
+      <small id="phoneHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input class="form-control" type="email" name="user_email" id="email" aria-describedby="userEmailHelp" required>
+      <small id="userEmailHelp" class="form-text text-muted">For your privacy, we'll notify you through an email in case of an outbreak.</small>
+    </div>
+    <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center">
+      Login
+    </button>
   </div>
-</div>
-
-<div style="display: flex; justify-content: center;">
- <button type="submit" class="btn btn-primary" style="width:30vh; margin-top:3vh">
-    Login
-  </button>
-</div>
-
 </form>
+
+<div style="justify-self: center; align-self: center">
+  <a href="{{ url_for('home') }}" type="button" class="btn btn-secondary" style="color: white" aria-describedby="alreadyRegistered">
+    Back
+  </a>
+</div>
 
 {% endblock %}
