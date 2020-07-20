@@ -109,22 +109,19 @@ def new_user_qr():
 def operator_login():
     icon=url_for("static", filename="icon.svg")
     if request.method == "POST":
-        if request.form["submit_button"] == "login":
-            operator_email = request.form["operator_email"]
-            password = request.form["password"]
+        operator_email = request.form["operator_email"]
+        password = request.form["password"]
 
-            found_operator = operators.query.filter_by(operator_email=operator_email).first()
+        found_operator = operators.query.filter_by(operator_email=operator_email).first()
 
-            if found_operator:
-                # print("Operator already exists")
-                if password == found_operator.password:
-                    return redirect(url_for("operator_qr"))
-                else:
-                    return redirect(url_for("operator_login"))
+        if found_operator:
+            # print("Operator already exists")
+            if password == found_operator.password:
+                return redirect(url_for("operator_qr"))
             else:
                 return redirect(url_for("operator_login"))
         else:
-            return redirect(url_for("operator_signup"))
+            return redirect(url_for("operator_login"))
     else:
         return render_template("operator_login.html",icon=icon)
 
@@ -144,24 +141,21 @@ def operator_scan():
 def operator_signup():
     icon=url_for("static", filename="icon.svg")
     if request.method == "POST":
-        if request.form["submit_button"] == "signup":
-            operator_email = request.form["operator_email"]
-            password = request.form["password"]
-            # c_password = request.form["confirm_password"]
+        operator_email = request.form["operator_email"]
+        password = request.form["password"]
+        # c_password = request.form["confirm_password"]
 
-            found_operator = operators.query.filter_by(operator_email=operator_email).first()
+        found_operator = operators.query.filter_by(operator_email=operator_email).first()
 
-            # TODO
-            if found_operator:
-                print("Operator already exists")
-                return redirect(url_for("operator_signup"))
-            else:
-                new_ope = operators(operator_email, password)
-                db.session.add(new_ope)
-                db.session.commit()
-                return redirect(url_for("operator_qr"))
+        # TODO
+        if found_operator:
+            print("Operator already exists")
+            return redirect(url_for("operator_signup"))
         else:
-            return redirect(url_for("operator_login"))
+            new_ope = operators(operator_email, password)
+            db.session.add(new_ope)
+            db.session.commit()
+            return redirect(url_for("operator_qr"))
     else:
         return render_template("operator_signup.html",icon=icon)
 

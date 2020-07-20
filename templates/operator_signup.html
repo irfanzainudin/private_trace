@@ -22,14 +22,14 @@
       <input type="password" name="confirm_password" class="form-control" id="ope_confirm_password" required>
     </div>
   </div>
-  <button type="submit" name="submit_button" value="signup" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
+  <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
     Signup
   </button>
-  <div style="justify-self: center; align-self: center">
-    <button type="submit" name="submit_button" value="login" class="btn btn-secondary" style="justify-self: center; align-self: center; margin-left: 25px" describedby="alreadyRegistered">
-      Login
-    </button>
-    <small id="alreadyRegistered" class="form-text text-muted">Already registered?</small>
-  </div>
 </form>
+<div style="justify-self: center; align-self: center">
+  <a type="button" href="{{ url_for('operator_login') }}" class="btn btn-secondary" style="justify-self: center; align-self: center; margin-left: 25px" describedby="alreadyRegistered">
+    Login
+  </a>
+  <small id="alreadyRegistered" class="form-text text-muted">Already registered?</small>
+</div>
 {% endblock %}
