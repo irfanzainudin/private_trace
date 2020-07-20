@@ -17,9 +17,19 @@
       <label for="ope_password">Password</label>
       <input type="password" name="password" class="form-control" id="ope_password">
     </div>
+    <div class="form-group">
+      <label for="ope_confirm_password">Confirm Password</label>
+      <input type="password" name="confirm_password" class="form-control" id="ope_confirm_password">
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary" style="justify-self: center; align-self: center">
-    Login
+  <button type="submit" name="submit_button" value="signup" class="btn btn-primary" style="justify-self: center; align-self: center" onclick="showToast()">
+    Signup
   </button>
+  <div style="justify-self: center; align-self: center">
+    <button type="submit" name="submit_button" value="login" class="btn btn-secondary" style="justify-self: center; align-self: center; margin-left: 25px" describedby="alreadyRegistered">
+      Login
+    </button>
+    <small id="alreadyRegistered" class="form-text text-muted">Already registered?</small>
+  </div>
 </form>
 {% endblock %}
