@@ -6,7 +6,18 @@
   <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
 
-<form method="POST" style="grid-row-start: 2; grid-row-end: 3; justify-self: center">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <div
+    class="alert alert-danger"
+    style="grid-row-start: 2; grid-row-end: 3; justify-self: center; align-self: center;"
+  >
+    {{ messages[0] }}
+  </div>
+{% endif %}
+{% endwith %}
+
+<form method="POST" style="grid-row-start: 3; grid-row-end: 4; justify-self: center">
   <!-- <h1>Operator login</h1> -->
   <div style="display: grid; justify-self: center">
     <div class="form-group">
@@ -26,14 +37,14 @@
   </div>
 </form>
 
-<div style="justify-self: center; align-self: center">
+<div style="grid-row-start: 4; grid-row-end: 5; justify-self: center; align-self: center">
   <a href="{{ url_for('operator_signup') }}" type="button" class="btn btn-secondary" style="justify-self: center; align-self: center; color: white; margin-left: 20px;" aria-describedby="alreadyRegistered">
     Signup
   </a>
   <small id="alreadyRegistered" class="form-text text-muted">Haven't registered?</small>
 </div>
 
-<div style="justify-self: center; align-self: center">
+<div style="grid-row-start: 5; grid-row-end: 6; justify-self: center; align-self: center">
   <a href="{{ url_for('home') }}" type="button" class="btn btn-secondary" style="color: white">
     Back
   </a>

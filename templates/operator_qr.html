@@ -13,4 +13,8 @@
 <div style="justify-self: center; align-self: center;">
     <a href="{{ url_for('operator_scan') }}" type="button" class="btn btn-secondary">Scan QR Code</a>
 </div>
+
+<form method="post" style="justify-self: center; align-self: center;">
+  <button type="submit" name="action_btn" value="logout" class="btn btn-secondary">Logout</button>
+</form>
 {% endblock %}

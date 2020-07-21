@@ -6,6 +6,17 @@
   <img src={{icon}} class="img-fluid" alt="private_ trace">
 </div>
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <div
+    class="alert alert-success"
+    style="grid-row-start: 2; grid-row-end: 3; justify-self: center; align-self: center;"
+  >
+    {{ messages[0] }}
+  </div>
+{% endif %}
+{% endwith %}
+
 <div style="justify-self: center; align-self: center;">
     <img src={{qr}} class="img-fluid" alt="QR Code">
 </div>
@@ -13,7 +24,9 @@
 <div style="justify-self: center; align-self: center;">
     <a href="{{ url_for('user_scan') }}" type="button" class="btn btn-secondary">Scan QR Code</a>
 </div>
-<!-- <div style="justify-self: center;">
-    <button type="submit" name="option" value="generate" class="btn btn-secondary">Generate QR Code</button>
-</div> -->
+
+<form method="post" style="justify-self: center; align-self: center;">
+  <button type="submit" name="action_btn" value="logout" class="btn btn-secondary">Logout</button>
+</form>
+
 {% endblock %}
